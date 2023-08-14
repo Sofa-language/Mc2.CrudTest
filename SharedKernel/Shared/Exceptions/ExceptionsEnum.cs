@@ -5,6 +5,7 @@
         InvalidPhoneNumberException,
         InvalidEmailException,
         InvalidBankAccountNumberException,
-        DuplicatedEmailException
+        DuplicatedEmailException,
+        CustomerDuplicatedException
     }
 }

@@ -43,8 +43,13 @@ namespace Mc2.CrudTest.Domain.Customers
         #endregion
 
         public static async Task<Customer> CreateAsync(CreateOrUpdateInitializer initializer, 
-            IEmailAddressDuplicationValidatorService emailAddressDuplicationService)
+            IEmailAddressDuplicationValidatorService emailAddressDuplicationService,
+            ICustomerDuplicationValidatorService customerDuplicationValidatorService)
         {
+            var isCustomerUnique = await customerDuplicationValidatorService.IsValidAsync(initializer.Firstname, initializer.Lastname, initializer.DateOfBirth);
+            if (!isCustomerUnique)
+                throw new CustomerDuplicatedException(ExceptionsEnum.CustomerDuplicatedException);
+
             var customer = new Customer(initializer);
 
             await customer.SetEmail(initializer.Email, emailAddressDuplicationService);

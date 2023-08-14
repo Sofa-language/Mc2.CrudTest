@@ -78,10 +78,11 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var dateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
 
-            await Assert.ThrowsAsync<Exception>(() => 
+            await Assert.ThrowsAsync<CustomerDuplicatedException>(() => 
                     builder.WithFirstname(firstname)
                     .WithLastname(lastname)
                     .WithDateOfBirth(dateOfBirth)
+                    .SetCustomerDuplicationValidatorService(false)
                     .CreateAsync()
                 );
         }

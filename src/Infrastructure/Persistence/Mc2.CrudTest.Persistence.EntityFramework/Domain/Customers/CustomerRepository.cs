@@ -14,5 +14,14 @@ namespace Mc2.CrudTest.Persistence.EntityFramework.Domain.Customers
         {
             return DbContext.Customers.SingleOrDefaultAsync(c=> c.Email.Value.Equals(email));
         }
+
+        public Task<bool> IsDuplicatedAsync(string firstName, string lastName, DateTimeOffset dateOfBirth)
+        {
+            return DbContext.Customers.AnyAsync(c => 
+                    c.Firstname.Equals(firstName) && 
+                    c.Lastname.Equals(lastName) && 
+                    c.DateOfBirth.Equals(dateOfBirth)
+                );
+        }
     }
 }
