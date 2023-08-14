@@ -49,7 +49,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
         [Fact]
         public void Unable_to_create_customer_successfully_when_Email_is_invalid()
         {
-            var email = "????????";
+            var email = Guid.NewGuid().ToString();
             var builder = CustomerBuilder.Instance;
 
             Assert.Throws<InvalidEmailException>(() => builder.WithEmail(email).Create());
@@ -57,7 +57,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
         [Fact]
         public void Unable_to_create_customer_successfully_when_BankAccountNumber_is_invalid()
         {
-            var bankAccountNumber = "????????";
+            var bankAccountNumber = Guid.NewGuid().ToString();
             var builder = CustomerBuilder.Instance;
 
             Assert.Throws<InvalidBankAccountNumberException>(() => builder.WithBankAccountNumber(bankAccountNumber).Create());

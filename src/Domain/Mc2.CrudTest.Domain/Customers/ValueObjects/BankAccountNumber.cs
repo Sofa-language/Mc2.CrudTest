@@ -1,5 +1,6 @@
 ﻿using EmailCore.Validation;
 using IbanNet;
+using IbanNet.Registry;
 using Mc2.CrudTest.Domain.Customers.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.SeedWork;
@@ -35,7 +36,7 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
         private void Validate()
         {
             var validator = new IbanValidator();
-            ValidationResult validationResult = validator.Validate("Value");
+            ValidationResult validationResult = validator.Validate(Value);
             if (!validationResult.IsValid)
                 throw new InvalidBankAccountNumberException(ExceptionsEnum.InvalidBankAccountNumberException, Value);
         }
