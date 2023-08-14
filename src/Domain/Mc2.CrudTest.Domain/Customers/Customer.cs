@@ -1,6 +1,10 @@
-﻿using Mc2.CrudTest.Domain.Customers.Initializers;
+﻿using Mc2.CrudTest.Domain.Customers.DomainServices;
+using Mc2.CrudTest.Domain.Customers.Exceptions;
+using Mc2.CrudTest.Domain.Customers.Initializers;
 using Mc2.CrudTest.Domain.Customers.ValueObjects;
+using Mc2.CrudTest.Presentation.Shared.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.SeedWork;
+using System.Runtime.CompilerServices;
 
 namespace Mc2.CrudTest.Domain.Customers
 {
@@ -10,14 +14,13 @@ namespace Mc2.CrudTest.Domain.Customers
         {
             
         }
-        public Customer(CreateOrUpdateInitializer initializer) : this()
+        private Customer(CreateOrUpdateInitializer initializer) : this()
         {
             Id = initializer.Id;
             Firstname = initializer.Firstname;
             Lastname = initializer.Lastname;
             DateOfBirth = initializer.DateOfBirth;
             PhoneNumber = initializer.PhoneNumber;
-            Email = initializer.Email;
             BankAccountNumber = initializer.BankAccountNumber;
         }
         public long Id { get; private set; }
@@ -29,7 +32,24 @@ namespace Mc2.CrudTest.Domain.Customers
         public BankAccountNumber BankAccountNumber { get; private set; }
 
         #region PrivateMethods
-        
+        private async Task SetEmail(string email, IEmailAddressDuplicationValidatorService emailAddressDuplicationService)
+        {
+            var isUnique = await emailAddressDuplicationService.IsValidAsync(Id, email);
+            if (!isUnique)
+                throw new DuplicatedEmailException(ExceptionsEnum.DuplicatedEmailException, email);
+
+            Email = email;
+        }
         #endregion
+
+        public static async Task<Customer> CreateAsync(CreateOrUpdateInitializer initializer, 
+            IEmailAddressDuplicationValidatorService emailAddressDuplicationService)
+        {
+            var customer = new Customer(initializer);
+
+            await customer.SetEmail(initializer.Email, emailAddressDuplicationService);
+
+            return customer;
+        }
     }
 }

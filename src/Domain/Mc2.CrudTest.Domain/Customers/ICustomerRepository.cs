@@ -4,5 +4,6 @@ namespace Mc2.CrudTest.Domain.Customers
 {
     public interface ICustomerRepository : IRepository<Customer, long>
     {
+        Task<Customer> GetByEmailAsync(string email);
     }
 }

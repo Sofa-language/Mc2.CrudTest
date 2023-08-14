@@ -1,5 +1,7 @@
 ﻿using Mc2.CrudTest.Domain.Customers;
+using Mc2.CrudTest.Domain.Customers.DomainServices;
 using Mc2.CrudTest.Domain.Customers.Initializers;
+using Moq;
 
 namespace Mc2.CrudTest.Domain.Tests.Customers.Builders
 {
@@ -12,6 +14,8 @@ namespace Mc2.CrudTest.Domain.Tests.Customers.Builders
         internal string _phoneNumber;
         internal string _email;
         internal string _bankAccountNumber;
+
+        internal Mock<IEmailAddressDuplicationValidatorService> _emailAddressDuplicationService;
 
         internal static CustomerBuilder Instance
         {
@@ -33,6 +37,10 @@ namespace Mc2.CrudTest.Domain.Tests.Customers.Builders
             WithPhoneNumber("+989224957626");
             WithEmail("jahanbin.ali1988@gmail.com");
             WithBankAccountNumber("NL91ABNA0417164300");
+
+            _emailAddressDuplicationService = new Mock<IEmailAddressDuplicationValidatorService>();
+
+            SetEmailAddressDuplicationService(true);
         }
 
         internal CustomerBuilder WithId(long id) { _id = id; return this; }
@@ -43,11 +51,18 @@ namespace Mc2.CrudTest.Domain.Tests.Customers.Builders
         internal CustomerBuilder WithEmail(string email) { _email = email; return this; }
         internal CustomerBuilder WithBankAccountNumber(string bankAccountNumber) { _bankAccountNumber = bankAccountNumber; return this; }
 
-        internal Customer Create()
+        internal CustomerBuilder SetEmailAddressDuplicationService(bool result)
+        {
+            _emailAddressDuplicationService.Setup(s=> s.IsValidAsync(It.IsAny<long>(), It.IsAny<string>())).ReturnsAsync(result);
+
+            return this;
+        }
+
+        internal async Task<Customer> CreateAsync()
         {
             var initializer = CreateInitializer();
 
-            return new Customer(initializer);
+            return await Customer.CreateAsync(initializer, _emailAddressDuplicationService.Object);
         }
 
         private CreateOrUpdateInitializer CreateInitializer()

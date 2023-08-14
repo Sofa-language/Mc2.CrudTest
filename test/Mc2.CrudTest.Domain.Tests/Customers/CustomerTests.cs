@@ -8,7 +8,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
     {
         #region Create
         [Fact]
-        public void Create_customer_successfully()
+        public async void Create_customer_successfully()
         {
             var id = 1;
             var firstname = Guid.NewGuid().ToString();
@@ -19,7 +19,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var dateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
 
-            var customer = builder
+            var customer = await builder
                 .WithId(id)
                 .WithFirstname(firstname)
                 .WithLastname(lastname)
@@ -27,7 +27,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
                 .WithPhoneNumber(phoneNumber)
                 .WithBankAccountNumber(bankAccountNumber)
                 .WithDateOfBirth(dateOfBirth)
-                .Create();
+                .CreateAsync();
 
             customer.ShouldNotBeNull();
             customer.Id.ShouldBe(id);
@@ -39,36 +39,36 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             customer.BankAccountNumber.ShouldBe(bankAccountNumber);
         }
         [Fact]
-        public void Unable_to_create_customer_successfully_when_PhoneNumber_is_invalid()
+        public async Task Unable_to_create_customer_successfully_when_PhoneNumber_is_invalid()
         {
             var phoneNumber = Guid.NewGuid().ToString();
             var builder = CustomerBuilder.Instance;
 
-            Assert.Throws<InvalidPhoneNumberException>(() => builder.WithPhoneNumber(phoneNumber).Create());
+            await Assert.ThrowsAsync<InvalidPhoneNumberException>(() => builder.WithPhoneNumber(phoneNumber).CreateAsync());
         }
         [Fact]
-        public void Unable_to_create_customer_successfully_when_Email_is_invalid()
+        public async Task Unable_to_create_customer_successfully_when_Email_is_invalid()
         {
             var email = Guid.NewGuid().ToString();
             var builder = CustomerBuilder.Instance;
 
-            Assert.Throws<InvalidEmailException>(() => builder.WithEmail(email).Create());
+            await Assert.ThrowsAsync<InvalidEmailException>(() => builder.WithEmail(email).CreateAsync());
         }
         [Fact]
-        public void Unable_to_create_customer_successfully_when_BankAccountNumber_is_invalid()
+        public async Task Unable_to_create_customer_successfully_when_BankAccountNumber_is_invalid()
         {
             var bankAccountNumber = Guid.NewGuid().ToString();
             var builder = CustomerBuilder.Instance;
 
-            Assert.Throws<InvalidBankAccountNumberException>(() => builder.WithBankAccountNumber(bankAccountNumber).Create());
+            await Assert.ThrowsAsync<InvalidBankAccountNumberException>(() => builder.WithBankAccountNumber(bankAccountNumber).CreateAsync());
         }
         [Fact]
-        public void Unable_to_create_customer_successfully_when_Email_is_not_unique()
+        public async Task Unable_to_create_customer_successfully_when_Email_is_not_unique()
         {
             var email = "jahanbin.ali1988@gmail.com";
             var builder = CustomerBuilder.Instance;
 
-            Assert.Throws<Exception>(() => builder.WithEmail(email).Create());
+            await Assert.ThrowsAsync<DuplicatedEmailException>(() => builder.SetEmailAddressDuplicationService(false).WithEmail(email).CreateAsync());
         }
         #endregion
 

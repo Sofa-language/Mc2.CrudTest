@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Customers\DomainServices\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="EmailCore.Validation" Version="1.1.0" />
 		<PackageReference Include="Google.LibPhoneNumber" Version="1.0.0" />
 		<PackageReference Include="IbanNet" Version="5.10.0" />

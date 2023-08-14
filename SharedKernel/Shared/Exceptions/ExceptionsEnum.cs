@@ -4,6 +4,7 @@
     {
         InvalidPhoneNumberException,
         InvalidEmailException,
-        InvalidBankAccountNumberException
+        InvalidBankAccountNumberException,
+        DuplicatedEmailException
     }
 }
