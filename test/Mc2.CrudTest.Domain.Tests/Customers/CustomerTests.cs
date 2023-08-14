@@ -42,6 +42,14 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             customer.PhoneNumber.ShouldBe(phoneNumber);
             customer.BankAccountNumber.ShouldBe(bankAccountNumber);
         }
+        [Fact]
+        public void Unable_to_create_customer_successfully_when_mobilenumber_is_invalid()
+        {
+            var phoneNumber = Guid.NewGuid().ToString();
+            var builder = CustomerBuilder.Instance;
+
+            Assert.Throws<Exception>(() => builder.WithPhoneNumber(phoneNumber).Create());
+        }
         #endregion
 
         #region Update
