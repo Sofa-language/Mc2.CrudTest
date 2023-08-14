@@ -1,11 +1,6 @@
 ﻿using Mc2.CrudTest.Domain.Customers.Exceptions;
 using Mc2.CrudTest.Domain.Tests.Customers.Builders;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mc2.CrudTest.Domain.Tests.Customers
 {
@@ -18,9 +13,9 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var id = 1;
             var firstname = Guid.NewGuid().ToString();
             var lastname = Guid.NewGuid().ToString();
-            var email = Guid.NewGuid().ToString();
+            var email = "jahanbin.ali1988@gmail.com";
             var phoneNumber = "09224957626";
-            var bankAccountNumber = Guid.NewGuid().ToString();
+            var bankAccountNumber = "NL91ABNA0417164300";
             var dateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
 
