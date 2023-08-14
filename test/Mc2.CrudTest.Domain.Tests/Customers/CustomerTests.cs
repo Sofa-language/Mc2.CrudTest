@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.Tests.Customers.Builders;
+﻿using Mc2.CrudTest.Domain.Customers.Exceptions;
+using Mc2.CrudTest.Domain.Tests.Customers.Builders;
 using Shouldly;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var firstname = Guid.NewGuid().ToString();
             var lastname = Guid.NewGuid().ToString();
             var email = Guid.NewGuid().ToString();
-            var phoneNumber = Guid.NewGuid().ToString();
+            var phoneNumber = "09224957626";
             var bankAccountNumber = Guid.NewGuid().ToString();
             var dateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
@@ -48,7 +49,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var phoneNumber = Guid.NewGuid().ToString();
             var builder = CustomerBuilder.Instance;
 
-            Assert.Throws<Exception>(() => builder.WithPhoneNumber(phoneNumber).Create());
+            Assert.Throws<InvalidPhoneNumberException>(() => builder.WithPhoneNumber(phoneNumber).Create());
         }
         #endregion
 

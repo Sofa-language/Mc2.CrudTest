@@ -26,6 +26,13 @@ namespace Mc2.CrudTest.Domain.Tests.Customers.Builders
         public CustomerBuilder()
         {
 
+            WithId(1);
+            WithFirstname("Ali");
+            WithLastname("Jahanbin");
+            WithDateOfBirth(new DateTimeOffset(1988, 8, 9, 0, 0,0 , new TimeSpan()));
+            WithPhoneNumber("+989224957626");
+            WithEmail("jahanbin.ali1988@gmail.com");
+            WithBankAccountNumber("123456789");
         }
 
         internal CustomerBuilder WithId(long id) { _id = id; return this; }

@@ -1,4 +1,5 @@
 ﻿using Mc2.CrudTest.Domain.Customers.Initializers;
+using Mc2.CrudTest.Domain.Customers.ValueObjects;
 using Mc2.CrudTest.Presentation.Shared.SeedWork;
 
 namespace Mc2.CrudTest.Domain.Customers
@@ -23,8 +24,12 @@ namespace Mc2.CrudTest.Domain.Customers
         public string Firstname { get; private set; }
         public string Lastname { get; private set; }
         public DateTimeOffset DateOfBirth { get; private set; }
-        public string PhoneNumber { get; private set; }
+        public PhoneNumber PhoneNumber { get; private set; }
         public string Email { get; private set; }
         public string BankAccountNumber { get; private set; }
+
+        #region PrivateMethods
+        
+        #endregion
     }
 }

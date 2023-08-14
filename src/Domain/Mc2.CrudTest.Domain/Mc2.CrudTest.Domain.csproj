@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Customers\DomainServices\" />
-    <Folder Include="Customers\ValueObjects\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.LibPhoneNumber" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
