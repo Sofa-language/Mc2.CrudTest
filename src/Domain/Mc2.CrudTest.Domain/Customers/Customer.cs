@@ -25,7 +25,7 @@ namespace Mc2.CrudTest.Domain.Customers
         public string Lastname { get; private set; }
         public DateTimeOffset DateOfBirth { get; private set; }
         public PhoneNumber PhoneNumber { get; private set; }
-        public string Email { get; private set; }
+        public Email Email { get; private set; }
         public string BankAccountNumber { get; private set; }
 
         #region PrivateMethods

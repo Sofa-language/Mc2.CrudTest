@@ -2,6 +2,7 @@
 {
     public enum ExceptionsEnum : int
     {
-        InvalidPhoneNumberException
+        InvalidPhoneNumberException,
+        InvalidEmailException
     }
 }

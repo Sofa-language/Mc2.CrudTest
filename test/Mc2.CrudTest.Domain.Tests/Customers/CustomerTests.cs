@@ -52,12 +52,12 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             Assert.Throws<InvalidPhoneNumberException>(() => builder.WithPhoneNumber(phoneNumber).Create());
         }
         [Fact]
-        public void Unable_to_create_customer_successfully_when_BankAccountNumber_is_invalid()
+        public void Unable_to_create_customer_successfully_when_Email_is_invalid()
         {
-            var email = Guid.NewGuid().ToString();
+            var email = "????????";
             var builder = CustomerBuilder.Instance;
 
-            Assert.Throws<Exception>(() => builder.WithEmail(email).Create());
+            Assert.Throws<InvalidEmailException>(() => builder.WithEmail(email).Create());
         }
         #endregion
 
