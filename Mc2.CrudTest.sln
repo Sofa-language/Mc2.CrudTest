@@ -7,8 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKerne
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB1992A9-2200-42D6-A800-110B40BB07E3}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\SampleMicroservice\SampleMicroservice\SampleMicroservice\Directory.Build.props = ..\..\SampleMicroservice\SampleMicroservice\SampleMicroservice\Directory.Build.props
-		..\..\SampleMicroservice\SampleMicroservice\SampleMicroservice\Directory.Build.targets = ..\..\SampleMicroservice\SampleMicroservice\SampleMicroservice\Directory.Build.targets
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CF9A6345-4228-4AC5-9ABB-8486F74FB754}"

@@ -1,6 +1,8 @@
-﻿namespace Mc2.CrudTest.Domain.Customers
+﻿using Mc2.CrudTest.Presentation.Shared.SeedWork;
+
+namespace Mc2.CrudTest.Domain.Customers
 {
-    public class Customer
+    public class Customer : Entity<long>, IAggregateRoot
     {
         public long Id { get; set; }
         public string Firstname { get; set; }
