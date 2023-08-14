@@ -62,6 +62,14 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
 
             Assert.Throws<InvalidBankAccountNumberException>(() => builder.WithBankAccountNumber(bankAccountNumber).Create());
         }
+        [Fact]
+        public void Unable_to_create_customer_successfully_when_Email_is_not_unique()
+        {
+            var email = "jahanbin.ali1988@gmail.com";
+            var builder = CustomerBuilder.Instance;
+
+            Assert.Throws<Exception>(() => builder.WithEmail(email).Create());
+        }
         #endregion
 
         #region Update
