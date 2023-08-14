@@ -70,6 +70,21 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
 
             await Assert.ThrowsAsync<DuplicatedEmailException>(() => builder.SetEmailAddressDuplicationService(false).WithEmail(email).CreateAsync());
         }
+        [Fact]
+        public async Task Unable_to_create_customer_successfully_when_customer_is_not_unique()
+        {
+            var firstname = Guid.NewGuid().ToString();
+            var lastname = Guid.NewGuid().ToString();
+            var dateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
+            var builder = CustomerBuilder.Instance;
+
+            await Assert.ThrowsAsync<Exception>(() => 
+                    builder.WithFirstname(firstname)
+                    .WithLastname(lastname)
+                    .WithDateOfBirth(dateOfBirth)
+                    .CreateAsync()
+                );
+        }
         #endregion
 
         #region Update
