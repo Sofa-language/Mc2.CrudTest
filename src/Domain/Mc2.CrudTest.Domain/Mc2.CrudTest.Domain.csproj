@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Customers\DomainServices\" />
-    <Folder Include="Customers\Initializers\" />
     <Folder Include="Customers\ValueObjects\" />
   </ItemGroup>
 

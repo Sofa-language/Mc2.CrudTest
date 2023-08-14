@@ -1,10 +1,13 @@
-﻿namespace Mc2.CrudTest.AcceptanceTests.Steps;
+﻿using Mc2.CrudTest.AcceptanceTests.Drivers;
+
+namespace Mc2.CrudTest.AcceptanceTests.Steps;
 
 [Binding]
 public sealed class CalculatorStepDefinitions
 {
     private readonly ScenarioContext _scenarioContext;
-
+    public string mytag = "";
+    
     public CalculatorStepDefinitions(ScenarioContext scenarioContext)
     {
         _scenarioContext = scenarioContext;

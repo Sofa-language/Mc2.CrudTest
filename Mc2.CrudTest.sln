@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Persistence.EntityFramework", "src\Infrastructure\Persistence\Mc2.CrudTest.Persistence.EntityFramework\Mc2.CrudTest.Persistence.EntityFramework.csproj", "{4074D5FB-000F-4622-A7DA-FFEA131E88D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Domain.Tests", "test\Mc2.CrudTest.Domain.Tests\Mc2.CrudTest.Domain.Tests.csproj", "{6F59C279-D2AC-439C-942A-CDDC7085332D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{4074D5FB-000F-4622-A7DA-FFEA131E88D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4074D5FB-000F-4622-A7DA-FFEA131E88D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4074D5FB-000F-4622-A7DA-FFEA131E88D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F59C279-D2AC-439C-942A-CDDC7085332D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F59C279-D2AC-439C-942A-CDDC7085332D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F59C279-D2AC-439C-942A-CDDC7085332D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F59C279-D2AC-439C-942A-CDDC7085332D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +110,7 @@ Global
 		{83BB3B60-91A4-4024-AF2F-3ADD8C4A942C} = {4AC51FE6-8EAD-4898-96E3-AEC72A66655F}
 		{15C9BA3E-023D-4F7D-BD08-7AF3929573AD} = {C110F908-7791-496B-8BFD-ED1E2AEF4D61}
 		{4074D5FB-000F-4622-A7DA-FFEA131E88D2} = {15C9BA3E-023D-4F7D-BD08-7AF3929573AD}
+		{6F59C279-D2AC-439C-942A-CDDC7085332D} = {2E85341B-7929-476F-848D-D519100017F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B5A26C9-68C1-49D9-9F32-AF907A1730C2}
