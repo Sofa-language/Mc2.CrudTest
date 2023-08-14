@@ -65,7 +65,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var bankAccountNumber = "????????";
             var builder = CustomerBuilder.Instance;
 
-            Assert.Throws<Exception>(() => builder.WithEmail(bankAccountNumber).Create());
+            Assert.Throws<InvalidBankAccountNumberException>(() => builder.WithBankAccountNumber(bankAccountNumber).Create());
         }
         #endregion
 
