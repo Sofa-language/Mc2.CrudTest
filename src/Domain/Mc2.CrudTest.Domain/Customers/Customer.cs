@@ -81,5 +81,10 @@ namespace Mc2.CrudTest.Domain.Customers
             AddDomainEvent(new UpdateCustomerDomainEvent(this.Id, this.Firstname, this.Lastname,
                 this.Email.Value, this.PhoneNumber.Value, this.BankAccountNumber.Value, this.DateOfBirth));
         }
+
+        public void Delete()
+        {
+            AddDomainEvent(new DeleteCustomerDomainEvent(this.Id));
+        }
     }
 }
