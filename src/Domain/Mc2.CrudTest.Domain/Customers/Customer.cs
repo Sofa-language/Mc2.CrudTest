@@ -57,9 +57,22 @@ namespace Mc2.CrudTest.Domain.Customers
             return customer;
         }
 
-        public void UpdateAsync(string expectedFirstname, string expectedLastname, string expectedEmail, string expectedPhoneNumber, string expectedBankAccountNumber, DateTimeOffset expectedDateOfBirth, IEmailAddressDuplicationValidatorService object1, ICustomerDuplicationValidatorService object2)
+        public async Task UpdateAsync(string expectedFirstname, string expectedLastname, string expectedEmail, 
+            string expectedPhoneNumber, string expectedBankAccountNumber, DateTimeOffset expectedDateOfBirth, 
+            IEmailAddressDuplicationValidatorService emailAddressDuplicationService, 
+            ICustomerDuplicationValidatorService customerDuplicationValidatorService)
         {
-            throw new NotImplementedException();
+            var isCustomerUnique = await customerDuplicationValidatorService.IsValidAsync(expectedFirstname, expectedLastname, expectedDateOfBirth);
+            if (!isCustomerUnique)
+                throw new CustomerDuplicatedException(ExceptionsEnum.CustomerDuplicatedException);
+
+            await this.SetEmail(expectedEmail, emailAddressDuplicationService);
+
+            Firstname = expectedFirstname;
+            Lastname = expectedLastname;
+            DateOfBirth = expectedDateOfBirth;
+            PhoneNumber = expectedPhoneNumber;
+            BankAccountNumber = expectedBankAccountNumber;
         }
     }
 }

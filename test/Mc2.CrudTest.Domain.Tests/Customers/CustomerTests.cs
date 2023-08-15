@@ -103,7 +103,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var builder = CustomerBuilder.Instance;
             var customer = await builder.CreateAsync();
 
-            customer.UpdateAsync(expectedFirstname, expectedLastname, expectedEmail, expectedPhoneNumber, 
+            await customer.UpdateAsync(expectedFirstname, expectedLastname, expectedEmail, expectedPhoneNumber, 
                 expectedBankAccountNumber, expectedDateOfBirth, 
                 builder._emailAddressDuplicationService.Object, builder._customerDuplicationValidatorService.Object);
 
