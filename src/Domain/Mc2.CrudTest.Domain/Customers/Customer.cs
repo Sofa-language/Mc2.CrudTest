@@ -46,7 +46,7 @@ namespace Mc2.CrudTest.Domain.Customers
             IEmailAddressDuplicationValidatorService emailAddressDuplicationService,
             ICustomerDuplicationValidatorService customerDuplicationValidatorService)
         {
-            var isCustomerUnique = await customerDuplicationValidatorService.IsValidAsync(initializer.Firstname, initializer.Lastname, initializer.DateOfBirth);
+            var isCustomerUnique = await customerDuplicationValidatorService.IsValidAsync(null, initializer.Firstname, initializer.Lastname, initializer.DateOfBirth);
             if (!isCustomerUnique)
                 throw new CustomerDuplicatedException(ExceptionsEnum.CustomerDuplicatedException);
 
@@ -62,7 +62,7 @@ namespace Mc2.CrudTest.Domain.Customers
             IEmailAddressDuplicationValidatorService emailAddressDuplicationService, 
             ICustomerDuplicationValidatorService customerDuplicationValidatorService)
         {
-            var isCustomerUnique = await customerDuplicationValidatorService.IsValidAsync(expectedFirstname, expectedLastname, expectedDateOfBirth);
+            var isCustomerUnique = await customerDuplicationValidatorService.IsValidAsync(this.Id, expectedFirstname, expectedLastname, expectedDateOfBirth);
             if (!isCustomerUnique)
                 throw new CustomerDuplicatedException(ExceptionsEnum.CustomerDuplicatedException);
 

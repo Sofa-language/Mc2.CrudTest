@@ -62,7 +62,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers.Builders
         }
         internal CustomerBuilder SetCustomerDuplicationValidatorService(bool result)
         {
-            _customerDuplicationValidatorService.Setup(s => s.IsValidAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTimeOffset>())).ReturnsAsync(result);
+            _customerDuplicationValidatorService.Setup(s => s.IsValidAsync(It.IsAny<long?>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTimeOffset>())).ReturnsAsync(result);
 
             return this;
         }

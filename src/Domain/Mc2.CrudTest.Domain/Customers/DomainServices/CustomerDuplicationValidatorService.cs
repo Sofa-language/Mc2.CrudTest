@@ -2,7 +2,7 @@
 {
     public interface ICustomerDuplicationValidatorService
     {
-        Task<bool> IsValidAsync(string firstName, string lastName, DateTimeOffset dateOfBirth);
+        Task<bool> IsValidAsync(long? id, string firstName, string lastName, DateTimeOffset dateOfBirth);
     }
     internal class CustomerDuplicationValidatorService : ICustomerDuplicationValidatorService
     {
@@ -13,9 +13,9 @@
             _customerRepository = customerRepository;
         }
 
-        public Task<bool> IsValidAsync(string firstName, string lastName, DateTimeOffset dateOfBirth)
+        public Task<bool> IsValidAsync(long? id, string firstName, string lastName, DateTimeOffset dateOfBirth)
         {
-            return _customerRepository.IsDuplicatedAsync(firstName, lastName, dateOfBirth);
+            return _customerRepository.IsDuplicatedAsync(id, firstName, lastName, dateOfBirth);
         }
     }
 }
