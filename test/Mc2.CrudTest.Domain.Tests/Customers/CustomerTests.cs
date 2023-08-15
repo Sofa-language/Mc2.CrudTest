@@ -120,13 +120,14 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var expectedFirstname = Guid.NewGuid().ToString();
             var expectedLastname = Guid.NewGuid().ToString();
             var expectedEmail = "jahanbin.ali1988@gmail.com";
-            var expectedPhoneNumber = "09224957626";
+            var expectedPhoneNumber = "09165770704";
             var expectedBankAccountNumber = "NL91ABNA0417164300";
-            var expectedDateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
+            var expectedDateOfBirth = new DateTimeOffset(1988, 9, 8, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
             var customer = await builder.CreateAsync();
 
-            await Assert.ThrowsAsync<Exception>(() => customer.UpdateAsync
+            builder.SetEmailAddressDuplicationService(false);
+            await Assert.ThrowsAsync<DuplicatedEmailException>(() => customer.UpdateAsync
                 (expectedFirstname, expectedLastname, expectedEmail, expectedPhoneNumber,
                 expectedBankAccountNumber, expectedDateOfBirth,
                 builder._emailAddressDuplicationService.Object, builder._customerDuplicationValidatorService.Object));
