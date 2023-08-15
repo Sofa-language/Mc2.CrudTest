@@ -1,4 +1,6 @@
-﻿using Mc2.CrudTest.Domain.Customers.Exceptions;
+﻿using Mc2.CrudTest.Domain.Customers.DomainServices;
+using Mc2.CrudTest.Domain.Customers.Exceptions;
+using Mc2.CrudTest.Domain.Customers.ValueObjects;
 using Mc2.CrudTest.Domain.Tests.Customers.Builders;
 using Shouldly;
 
@@ -90,9 +92,27 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
 
         #region Update
         [Fact]
-        public void Update()
+        public async Task Update_customer_successfully()
         {
+            var expectedFirstname = Guid.NewGuid().ToString();
+            var expectedLastname = Guid.NewGuid().ToString();
+            var expectedEmail = "jahanbin.ali1988@gmail.com";
+            var expectedPhoneNumber = "09224957626";
+            var expectedBankAccountNumber = "NL91ABNA0417164300";
+            var expectedDateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
+            var builder = CustomerBuilder.Instance;
+            var customer = await builder.CreateAsync();
 
+            customer.UpdateAsync(expectedFirstname, expectedLastname, expectedEmail, expectedPhoneNumber, 
+                expectedBankAccountNumber, expectedDateOfBirth, 
+                builder._emailAddressDuplicationService.Object, builder._customerDuplicationValidatorService.Object);
+
+            customer.Firstname.ShouldBe(expectedFirstname);
+            customer.Lastname.ShouldBe(expectedLastname);
+            customer.DateOfBirth.ShouldBe(expectedDateOfBirth);
+            customer.Email.ShouldBe(expectedEmail);
+            customer.PhoneNumber.ShouldBe(expectedPhoneNumber);
+            customer.BankAccountNumber.ShouldBe(expectedBankAccountNumber);
         }
         #endregion
 

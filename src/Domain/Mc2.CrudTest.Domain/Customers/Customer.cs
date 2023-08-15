@@ -56,5 +56,10 @@ namespace Mc2.CrudTest.Domain.Customers
 
             return customer;
         }
+
+        public void UpdateAsync(string expectedFirstname, string expectedLastname, string expectedEmail, string expectedPhoneNumber, string expectedBankAccountNumber, DateTimeOffset expectedDateOfBirth, IEmailAddressDuplicationValidatorService object1, ICustomerDuplicationValidatorService object2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
