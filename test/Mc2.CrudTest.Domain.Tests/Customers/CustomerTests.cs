@@ -114,6 +114,23 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             customer.PhoneNumber.ShouldBe(expectedPhoneNumber);
             customer.BankAccountNumber.ShouldBe(expectedBankAccountNumber);
         }
+        [Fact]
+        public async Task Unable_to_Update_customer_successfully_when_email_is_duplicated()
+        {
+            var expectedFirstname = Guid.NewGuid().ToString();
+            var expectedLastname = Guid.NewGuid().ToString();
+            var expectedEmail = "jahanbin.ali1988@gmail.com";
+            var expectedPhoneNumber = "09224957626";
+            var expectedBankAccountNumber = "NL91ABNA0417164300";
+            var expectedDateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
+            var builder = CustomerBuilder.Instance;
+            var customer = await builder.CreateAsync();
+
+            await Assert.ThrowsAsync<Exception>(() => customer.UpdateAsync
+                (expectedFirstname, expectedLastname, expectedEmail, expectedPhoneNumber,
+                expectedBankAccountNumber, expectedDateOfBirth,
+                builder._emailAddressDuplicationService.Object, builder._customerDuplicationValidatorService.Object));
+        }
         #endregion
     }
 }
