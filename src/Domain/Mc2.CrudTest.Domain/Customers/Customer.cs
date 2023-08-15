@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.Customers.DomainServices;
+﻿using Mc2.CrudTest.Domain.Contract.Customers.Events;
+using Mc2.CrudTest.Domain.Customers.DomainServices;
 using Mc2.CrudTest.Domain.Customers.Exceptions;
 using Mc2.CrudTest.Domain.Customers.Initializers;
 using Mc2.CrudTest.Domain.Customers.ValueObjects;
@@ -12,7 +13,7 @@ namespace Mc2.CrudTest.Domain.Customers
     {
         private Customer() : base()
         {
-            
+
         }
         private Customer(CreateOrUpdateInitializer initializer) : this()
         {
@@ -42,7 +43,7 @@ namespace Mc2.CrudTest.Domain.Customers
         }
         #endregion
 
-        public static async Task<Customer> CreateAsync(CreateOrUpdateInitializer initializer, 
+        public static async Task<Customer> CreateAsync(CreateOrUpdateInitializer initializer,
             IEmailAddressDuplicationValidatorService emailAddressDuplicationService,
             ICustomerDuplicationValidatorService customerDuplicationValidatorService)
         {
@@ -54,12 +55,15 @@ namespace Mc2.CrudTest.Domain.Customers
 
             await customer.SetEmail(initializer.Email, emailAddressDuplicationService);
 
+            customer.AddDomainEvent(new CreateCustomerDomainEvent(customer.Id, customer.Firstname, customer.Lastname,
+                customer.Email.Value, customer.PhoneNumber.Value, customer.BankAccountNumber.Value, customer.DateOfBirth));
+
             return customer;
         }
 
-        public async Task UpdateAsync(string expectedFirstname, string expectedLastname, string expectedEmail, 
-            string expectedPhoneNumber, string expectedBankAccountNumber, DateTimeOffset expectedDateOfBirth, 
-            IEmailAddressDuplicationValidatorService emailAddressDuplicationService, 
+        public async Task UpdateAsync(string expectedFirstname, string expectedLastname, string expectedEmail,
+            string expectedPhoneNumber, string expectedBankAccountNumber, DateTimeOffset expectedDateOfBirth,
+            IEmailAddressDuplicationValidatorService emailAddressDuplicationService,
             ICustomerDuplicationValidatorService customerDuplicationValidatorService)
         {
             var isCustomerUnique = await customerDuplicationValidatorService.IsValidAsync(this.Id, expectedFirstname, expectedLastname, expectedDateOfBirth);
@@ -73,6 +77,9 @@ namespace Mc2.CrudTest.Domain.Customers
             DateOfBirth = expectedDateOfBirth;
             PhoneNumber = expectedPhoneNumber;
             BankAccountNumber = expectedBankAccountNumber;
+
+            AddDomainEvent(new UpdateCustomerDomainEvent(this.Id, this.Firstname, this.Lastname,
+                this.Email.Value, this.PhoneNumber.Value, this.BankAccountNumber.Value, this.DateOfBirth));
         }
     }
 }

@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Customers\Enums\" />
-    <Folder Include="Customers\Events\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SharedKernel\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
   </ItemGroup>
 
 </Project>

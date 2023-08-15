@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.Customers.DomainServices;
+﻿using Mc2.CrudTest.Domain.Contract.Customers.Events;
+using Mc2.CrudTest.Domain.Customers.DomainServices;
 using Mc2.CrudTest.Domain.Customers.Exceptions;
 using Mc2.CrudTest.Domain.Customers.ValueObjects;
 using Mc2.CrudTest.Domain.Tests.Customers.Builders;
@@ -10,7 +11,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
     {
         #region Create
         [Fact]
-        public async void Create_customer_successfully()
+        public async Task Create_customer_successfully()
         {
             var id = 1;
             var firstname = Guid.NewGuid().ToString();
@@ -39,6 +40,8 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             customer.Email.ShouldBe(email);
             customer.PhoneNumber.ShouldBe(phoneNumber);
             customer.BankAccountNumber.ShouldBe(bankAccountNumber);
+            customer.DomainEvents.Count.ShouldBe(1);
+            customer.DomainEvents.Count(c=> c.GetType().Name.Equals(nameof(CreateCustomerDomainEvent))).ShouldBe(1);
         }
         [Fact]
         public async Task Unable_to_create_customer_successfully_when_PhoneNumber_is_invalid()
@@ -113,6 +116,8 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             customer.Email.ShouldBe(expectedEmail);
             customer.PhoneNumber.ShouldBe(expectedPhoneNumber);
             customer.BankAccountNumber.ShouldBe(expectedBankAccountNumber);
+            customer.DomainEvents.Count.ShouldBe(2);
+            customer.DomainEvents.Count(c => c.GetType().Name.Equals(nameof(UpdateCustomerDomainEvent))).ShouldBe(1);
         }
         [Fact]
         public async Task Unable_to_Update_customer_successfully_when_email_is_duplicated()
