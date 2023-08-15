@@ -156,5 +156,19 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
                 builder._emailAddressDuplicationService.Object, builder._customerDuplicationValidatorService.Object));
         }
         #endregion
+
+        #region Delete
+        [Fact]
+        public async Task Delete_Customer_successfully()
+        {
+            var builder = CustomerBuilder.Instance;
+            var customer = await builder.CreateAsync();
+
+            customer.Delete();
+
+            customer.DomainEvents.Count.ShouldBe(2);
+            customer.DomainEvents.Count(c => c.GetType().Name.Equals(nameof(DeleteCustomerDomainEvent))).ShouldBe(1);
+        }
+        #endregion
     }
 }
