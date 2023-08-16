@@ -1,23 +1,40 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<StartupObject></StartupObject>
+		<UserSecretsId>0c9e09e7-39d1-4481-8bf5-fb2ff4a74e3d</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Sample.Api.xml" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\SharedKernel\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
-    <ProjectReference Include="..\Client\Mc2.CrudTest.Presentation.Client.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="Sample.Api.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MediatR" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+		<PackageReference Include="Swashbuckle.AspNetCore" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" />
+		<PackageReference Include="Swashbuckle.AspNetCore" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\SharedKernel\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
+		<ProjectReference Include="..\..\Application\Mc2.CrudTest.Application\Mc2.CrudTest.Application.csproj" />
+		<ProjectReference Include="..\..\Infrastructure\Persistence\Mc2.CrudTest.Persistence.EntityFramework\Mc2.CrudTest.Persistence.EntityFramework.csproj" />
+		<ProjectReference Include="..\Client\Mc2.CrudTest.Presentation.Client.csproj" />
+	</ItemGroup>
 
 
 </Project>

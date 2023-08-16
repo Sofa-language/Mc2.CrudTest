@@ -21,7 +21,7 @@ namespace Mc2.CrudTest.Application.Customers.CommandHandlers
         {
             var customer = await _customerRepository.GetAsync(request.CustomerId, cancellationToken);
             if (customer == null)
-                throw new UnableToFindCustomerException(ExceptionsEnum.UnableToFindCustomerException, request.Id.ToString());
+                throw new UnableToFindCustomerException(ExceptionsEnum.UnableToFindCustomerException, request.CustomerId.ToString());
 
             customer.Delete();
             await _customerRepository.DeleteAsync(customer, cancellationToken);

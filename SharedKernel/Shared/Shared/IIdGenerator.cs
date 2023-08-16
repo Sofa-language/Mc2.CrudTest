@@ -8,16 +8,10 @@ namespace Mc2.CrudTest.Presentation.Shared.Shared
     }
     public class SnowflakeIdGenerator : IIdGenerator
     {
-        private readonly IdGenerator _idGenerator;
-
-        public SnowflakeIdGenerator(IdGenerator idGenerator)
-        {
-            _idGenerator = idGenerator;
-        }
-
         public long GetNewId()
         {
-            return _idGenerator.CreateId();
+            var idGenerator = new IdGenerator(123);
+            return idGenerator.CreateId();
         }
     }
 }

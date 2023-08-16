@@ -1,6 +1,7 @@
 ﻿using Mc2.CrudTest.Application.Contract.Customers.Commands;
 using Mc2.CrudTest.Application.Contract.Customers.Exceptions;
 using Mc2.CrudTest.Domain.Customers;
+using Mc2.CrudTest.Domain.Customers.DomainServices;
 using Mc2.CrudTest.Domain.Customers.Initializers;
 using Mc2.CrudTest.Presentation.Shared.Application;
 using Mc2.CrudTest.Presentation.Shared.Exceptions;
@@ -13,6 +14,8 @@ namespace Mc2.CrudTest.Application.Customers.CommandHandlers
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmailAddressDuplicationValidatorService _emailAddressDuplicationService;
+        private readonly ICustomerDuplicationValidatorService _customerDuplicationValidatorService;
         public UpdateCustomerCommandHandler(ICustomerRepository customerRepository, IUnitOfWork unitOfWork)
         {
             _customerRepository = customerRepository;
@@ -27,8 +30,7 @@ namespace Mc2.CrudTest.Application.Customers.CommandHandlers
             if (customer == null)
                 throw new UnableToFindCustomerException(ExceptionsEnum.UnableToFindCustomerException, request.Id.ToString());
 
-            customer.Delete();
-            await _customerRepository.DeleteAsync(customer, cancellationToken);
+            await customer.UpdateAsync(initializer, _emailAddressDuplicationService, _customerDuplicationValidatorService);
             await _unitOfWork.CommitAsync(cancellationToken);
 
             return customer.Id;

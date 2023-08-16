@@ -1,5 +1,6 @@
 ﻿using Mc2.CrudTest.Domain.Customers;
 using Mc2.CrudTest.Domain.Customers.Constants;
+using Mc2.CrudTest.Domain.Customers.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,8 +13,29 @@ namespace Sample.Infrastructure.Domain.Instruments
             builder.HasIndex(x => x.Id)
                 .IsUnique();
 
+            builder.Property(current => current.Id).ValueGeneratedNever();
+
             builder.Property(x => x.Firstname).HasMaxLength(ConstantValues.MaximumFirstnameLength);
             builder.Property(x => x.Lastname).HasMaxLength(ConstantValues.MaximumLastnameLength);
+            builder.Property(x => x.DateOfBirth);
+
+            builder.OwnsOne(p => p.Email, pp =>
+            {
+                pp.Property(current => current.Value)
+                    .HasColumnName(nameof(Email));
+            });
+
+            builder.OwnsOne(p => p.PhoneNumber, pp =>
+            {
+                pp.Property(current => current.Value)
+                    .HasColumnName(nameof(PhoneNumber));
+            });
+
+            builder.OwnsOne(p => p.BankAccountNumber, pp =>
+            {
+                pp.Property(current => current.Value)
+                    .HasColumnName(nameof(BankAccountNumber));
+            });
 
             builder.Property(x => x.CreatedAt)
                 .HasDefaultValueSql("SYSDATETIMEOFFSET()");
@@ -25,6 +47,7 @@ namespace Sample.Infrastructure.Domain.Instruments
                 .IsRequired(false);
 
             builder.Ignore(x => x.DomainEvents);
+            builder.Ignore(x => x.Version);
 
             builder.HasQueryFilter(p => EF.Property<bool>(p, "IsDeleted") == false);
 

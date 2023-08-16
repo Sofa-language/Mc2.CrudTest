@@ -75,7 +75,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers.Builders
             return await Customer.CreateAsync(initializer, _emailAddressDuplicationService.Object, _customerDuplicationValidatorService.Object);
         }
 
-        private CreateOrUpdateInitializer CreateInitializer()
+        internal CreateOrUpdateInitializer CreateInitializer()
         {
             return new CreateOrUpdateInitializer(_id, _firstname, _lastname, _phoneNumber, _email, _bankAccountNumber, _dateOfBirth);
         }

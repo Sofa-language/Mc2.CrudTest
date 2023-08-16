@@ -29,7 +29,7 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
         private void Validate()
         {
             var response = EmailInfo.Validation(Value);
-            if (!response.SuccessStatus)
+            if (!response.SyntaxValidationStatus)
                 throw new InvalidEmailException(ExceptionsEnum.InvalidEmailException, Value);
         }
     }

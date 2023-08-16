@@ -105,9 +105,9 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var expectedDateOfBirth = new DateTimeOffset(1988, 9, 8, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
             var customer = await builder.CreateAsync();
+            var initializer = builder.WithFirstname(expectedFirstname).WithLastname(expectedLastname).WithEmail(expectedEmail).WithPhoneNumber(expectedPhoneNumber).WithBankAccountNumber(expectedBankAccountNumber).WithDateOfBirth(expectedDateOfBirth).CreateInitializer();
 
-            await customer.UpdateAsync(expectedFirstname, expectedLastname, expectedEmail, expectedPhoneNumber, 
-                expectedBankAccountNumber, expectedDateOfBirth, 
+            await customer.UpdateAsync(initializer, 
                 builder._emailAddressDuplicationService.Object, builder._customerDuplicationValidatorService.Object);
 
             customer.Firstname.ShouldBe(expectedFirstname);
@@ -130,11 +130,11 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var expectedDateOfBirth = new DateTimeOffset(1988, 9, 8, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
             var customer = await builder.CreateAsync();
+            var initializer = builder.WithFirstname(expectedFirstname).WithLastname(expectedLastname).WithEmail(expectedEmail).WithPhoneNumber(expectedPhoneNumber).WithBankAccountNumber(expectedBankAccountNumber).WithDateOfBirth(expectedDateOfBirth).CreateInitializer();
 
             builder.SetEmailAddressDuplicationService(false);
             await Assert.ThrowsAsync<DuplicatedEmailException>(() => customer.UpdateAsync
-                (expectedFirstname, expectedLastname, expectedEmail, expectedPhoneNumber,
-                expectedBankAccountNumber, expectedDateOfBirth,
+                (initializer,
                 builder._emailAddressDuplicationService.Object, builder._customerDuplicationValidatorService.Object));
         }
         [Fact]
@@ -148,11 +148,11 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var expectedDateOfBirth = new DateTimeOffset(1988, 9, 8, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
             var customer = await builder.CreateAsync();
+            var initializer = builder.WithFirstname(expectedFirstname).WithLastname(expectedLastname).WithEmail(expectedEmail).WithPhoneNumber(expectedPhoneNumber).WithBankAccountNumber(expectedBankAccountNumber).WithDateOfBirth(expectedDateOfBirth).CreateInitializer();
 
             builder.SetCustomerDuplicationValidatorService(false);
             await Assert.ThrowsAsync<CustomerDuplicatedException>(() => customer.UpdateAsync
-                (expectedFirstname, expectedLastname, expectedEmail, expectedPhoneNumber,
-                expectedBankAccountNumber, expectedDateOfBirth,
+                (initializer,
                 builder._emailAddressDuplicationService.Object, builder._customerDuplicationValidatorService.Object));
         }
         #endregion

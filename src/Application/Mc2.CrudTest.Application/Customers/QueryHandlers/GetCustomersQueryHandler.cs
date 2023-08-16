@@ -3,11 +3,6 @@ using Mc2.CrudTest.Application.Contract.Customers.Queries;
 using Mc2.CrudTest.Persistence.EntityFramework.Persistence;
 using Mc2.CrudTest.Presentation.Shared.Application;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mc2.CrudTest.Application.Customers.QueryHandlers
 {
@@ -24,8 +19,6 @@ namespace Mc2.CrudTest.Application.Customers.QueryHandlers
             var totalCount = await _dbContext.Customers.CountAsync();
             var customers = await _dbContext.Customers
                 .Select(s => new CustomerDto(s.Id, s.Firstname, s.Lastname, s.PhoneNumber.Value, s.Email.Value, s.BankAccountNumber.Value, s.DateOfBirth))
-                .Take(request.PageSize)
-                .Skip((request.PageCount-1)* request.PageSize)
                 .ToListAsync();
 
             return new Pagination<CustomerDto>() { Items = customers, TotalItems = totalCount };

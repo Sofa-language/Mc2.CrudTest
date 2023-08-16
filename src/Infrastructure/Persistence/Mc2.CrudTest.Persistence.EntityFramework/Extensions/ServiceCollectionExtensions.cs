@@ -1,9 +1,13 @@
-﻿using Mc2.CrudTest.Domain.Customers;
+﻿using Humanizer.Configuration;
+using IdGen;
+using Mc2.CrudTest.Domain.Customers;
+using Mc2.CrudTest.Domain.Customers.DomainServices;
 using Mc2.CrudTest.Persistence.EntityFramework.Domain.Customers;
 using Mc2.CrudTest.Persistence.EntityFramework.EventProcessing;
 using Mc2.CrudTest.Persistence.EntityFramework.Persistence;
 using Mc2.CrudTest.Presentation.Shared.EventProcessing.DomainEvent;
 using Mc2.CrudTest.Presentation.Shared.SeedWork;
+using Mc2.CrudTest.Presentation.Shared.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,17 +19,17 @@ namespace Mc2.CrudTest.Persistence.EntityFramework.Extensions
         public static IServiceCollection AddRepository(this IServiceCollection services, IConfiguration configuration)
         {
             var mssqlConnection = configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
-            services.AddDbContextPool<SampleDbContext>(options =>
-            {
-                options.UseSqlServer(mssqlConnection);
-                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                options.EnableSensitiveDataLogging(true);
-            }, 1024);
+            services.AddDbContext<SampleDbContext>(options => options.
+               UseSqlServer(mssqlConnection));
 
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ICustomerDuplicationValidatorService, CustomerDuplicationValidatorService>();
+            services.AddTransient<IEmailAddressDuplicationValidatorService, EmailAddressDuplicationValidatorService>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IDomainEventsDispatcher, DomainEventsDispatcher>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IDomainEventsDispatcher, DomainEventsDispatcher>();
+
+            services.AddTransient<IIdGenerator, SnowflakeIdGenerator>();
 
             return services;
         }

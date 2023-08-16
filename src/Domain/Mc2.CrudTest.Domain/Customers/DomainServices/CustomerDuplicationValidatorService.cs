@@ -4,7 +4,7 @@
     {
         Task<bool> IsValidAsync(long? id, string firstName, string lastName, DateTimeOffset dateOfBirth);
     }
-    internal class CustomerDuplicationValidatorService : ICustomerDuplicationValidatorService
+    public class CustomerDuplicationValidatorService : ICustomerDuplicationValidatorService
     {
         private readonly ICustomerRepository _customerRepository;
 

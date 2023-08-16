@@ -1,4 +1,10 @@
 using Microsoft.AspNetCore.ResponseCompression;
+using Mc2.CrudTest.Presentation.Server.Extensions;
+using Microsoft.AspNetCore.Hosting;
+using System.Diagnostics;
+using Mc2.CrudTest.Presentation.Server;
+using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Mc2.CrudTest.Presentation
 {
@@ -6,40 +12,21 @@ namespace Mc2.CrudTest.Presentation
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            try
             {
-                app.UseWebAssemblyDebugging();
+                CreateHostBuilder(args).Build().Run();
             }
-            else
+            catch (Exception ex)
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                Debugger.Break();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseBlazorFrameworkFiles();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-
-            app.MapRazorPages();
-            app.MapControllers();
-            app.MapFallbackToFile("index.html");
-
-            app.Run();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }
