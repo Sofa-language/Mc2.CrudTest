@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\SharedKernel\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
+		<ProjectReference Include="..\..\Domain\Mc2.CrudTest.Domain.Contract\Mc2.CrudTest.Domain.Contract.csproj" />
 	</ItemGroup>
 
 </Project>
