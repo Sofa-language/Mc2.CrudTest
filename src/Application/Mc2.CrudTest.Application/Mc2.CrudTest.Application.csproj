@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\CommandHandlers\" />
-    <Folder Include="Customers\QueryHandlers\" />
+    <ProjectReference Include="..\..\Domain\Mc2.CrudTest.Domain\Mc2.CrudTest.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Persistence\Mc2.CrudTest.Persistence.EntityFramework\Mc2.CrudTest.Persistence.EntityFramework.csproj" />
+    <ProjectReference Include="..\Mc2.CrudTest.Application.Contract\Mc2.CrudTest.Application.Contract.csproj" />
   </ItemGroup>
 
 </Project>

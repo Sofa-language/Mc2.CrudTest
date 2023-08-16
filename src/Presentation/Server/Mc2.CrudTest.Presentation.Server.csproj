@@ -15,5 +15,9 @@
     <ProjectReference Include="..\Client\Mc2.CrudTest.Presentation.Client.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 
 </Project>

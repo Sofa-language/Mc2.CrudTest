@@ -6,6 +6,7 @@
         InvalidEmailException,
         InvalidBankAccountNumberException,
         DuplicatedEmailException,
-        CustomerDuplicatedException
+        CustomerDuplicatedException,
+        UnableToFindCustomerException
     }
 }
