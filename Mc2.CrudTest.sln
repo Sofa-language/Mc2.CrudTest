@@ -31,19 +31,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Presentation.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.AcceptanceTests", "test\Mc2.CrudTest.AcceptanceTests\Mc2.CrudTest.AcceptanceTests.csproj", "{BBE6CA6D-2AF3-4F87-B3DD-BC587184C84E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Domain", "src\Domain\Mc2.CrudTest.Domain\Mc2.CrudTest.Domain.csproj", "{4B28B0CA-AD3A-4DDC-8324-64B232563104}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Domain", "src\Domain\Mc2.CrudTest.Domain\Mc2.CrudTest.Domain.csproj", "{4B28B0CA-AD3A-4DDC-8324-64B232563104}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Domain.Contract", "src\Domain\Mc2.CrudTest.Domain.Contract\Mc2.CrudTest.Domain.Contract.csproj", "{6456A324-3EA5-4DD1-B4D1-74C5172A73DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Domain.Contract", "src\Domain\Mc2.CrudTest.Domain.Contract\Mc2.CrudTest.Domain.Contract.csproj", "{6456A324-3EA5-4DD1-B4D1-74C5172A73DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Application", "src\Application\Mc2.CrudTest.Application\Mc2.CrudTest.Application.csproj", "{E819DC1D-9C7C-426F-B360-ADCA362B68A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Application", "src\Application\Mc2.CrudTest.Application\Mc2.CrudTest.Application.csproj", "{E819DC1D-9C7C-426F-B360-ADCA362B68A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Application.Contract", "src\Application\Mc2.CrudTest.Application.Contract\Mc2.CrudTest.Application.Contract.csproj", "{83BB3B60-91A4-4024-AF2F-3ADD8C4A942C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Application.Contract", "src\Application\Mc2.CrudTest.Application.Contract\Mc2.CrudTest.Application.Contract.csproj", "{83BB3B60-91A4-4024-AF2F-3ADD8C4A942C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{15C9BA3E-023D-4F7D-BD08-7AF3929573AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Persistence.EntityFramework", "src\Infrastructure\Persistence\Mc2.CrudTest.Persistence.EntityFramework\Mc2.CrudTest.Persistence.EntityFramework.csproj", "{4074D5FB-000F-4622-A7DA-FFEA131E88D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Persistence.EntityFramework", "src\Infrastructure\Persistence\Mc2.CrudTest.Persistence.EntityFramework\Mc2.CrudTest.Persistence.EntityFramework.csproj", "{4074D5FB-000F-4622-A7DA-FFEA131E88D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Domain.Tests", "test\Mc2.CrudTest.Domain.Tests\Mc2.CrudTest.Domain.Tests.csproj", "{6F59C279-D2AC-439C-942A-CDDC7085332D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mc2.CrudTest.Domain.Tests", "test\Mc2.CrudTest.Domain.Tests\Mc2.CrudTest.Domain.Tests.csproj", "{6F59C279-D2AC-439C-942A-CDDC7085332D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AE56B164-1FB2-4B26-BB36-1037063EB943}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,10 @@ Global
 		{6F59C279-D2AC-439C-942A-CDDC7085332D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F59C279-D2AC-439C-942A-CDDC7085332D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F59C279-D2AC-439C-942A-CDDC7085332D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE56B164-1FB2-4B26-BB36-1037063EB943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE56B164-1FB2-4B26-BB36-1037063EB943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE56B164-1FB2-4B26-BB36-1037063EB943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE56B164-1FB2-4B26-BB36-1037063EB943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

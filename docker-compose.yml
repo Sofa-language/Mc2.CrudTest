@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  mc2.crudtest.presentation.server:
+    image: ${DOCKER_REGISTRY-}mc2crudtestpresentationserver
+    build:
+      context: .
+      dockerfile: src/Presentation/Server/Dockerfile
+
+  mssqlserver:
+    image:  mcr.microsoft.com/mssql/server:latest
+    environment: 
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Jahan*0021
+      - MSSQL_PID=Evaluation
+    ports:
+      - 1434:1433
