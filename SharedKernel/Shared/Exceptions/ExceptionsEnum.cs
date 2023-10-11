@@ -7,6 +7,7 @@
         InvalidBankAccountNumberException,
         DuplicatedEmailException,
         CustomerDuplicatedException,
-        UnableToFindCustomerException
+        UnableToFindCustomerException,
+        PhoneNumberIsNotMobileException
     }
 }

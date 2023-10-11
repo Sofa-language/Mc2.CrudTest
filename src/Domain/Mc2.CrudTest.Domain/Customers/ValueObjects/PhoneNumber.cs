@@ -1,7 +1,7 @@
-﻿using libphonenumber;
-using Mc2.CrudTest.Domain.Customers.Exceptions;
+﻿using Mc2.CrudTest.Domain.Customers.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.SeedWork;
+using PhoneNumbers;
 
 namespace Mc2.CrudTest.Domain.Customers.ValueObjects
 {
@@ -28,10 +28,19 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
 
         private void Validate()
         {
-            PhoneNumberUtil phoneUtil = PhoneNumberUtil.Instance;
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
             try
             {
-                phoneUtil.Parse(Value, "IR");
+                var convertedPhoneNumber = phoneUtil.Parse(Value, "IR");
+
+                var numberType = phoneUtil.GetNumberType(convertedPhoneNumber);
+
+                string phoneNumberType = numberType.ToString();
+
+                if (numberType != PhoneNumberType.MOBILE && numberType != PhoneNumberType.FIXED_LINE_OR_MOBILE)
+                {
+                    throw new InvalidPhoneNumberException(ExceptionsEnum.InvalidPhoneNumberException, $"{Value} is not mobile numberss");
+                }
             }
             catch (NumberParseException e)
             {

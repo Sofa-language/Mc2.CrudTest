@@ -10,14 +10,15 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
     public class CustomerTests
     {
         #region Create
-        [Fact]
-        public async Task Create_customer_successfully()
+        [Theory]
+        [InlineData("+989121234567")]
+        [InlineData("+16156381234")]
+        public async Task Create_customer_successfully(string phoneNumber)
         {
             var id = 1;
             var firstname = Guid.NewGuid().ToString();
             var lastname = Guid.NewGuid().ToString();
             var email = "jahanbin.ali1988@gmail.com";
-            var phoneNumber = "09224957626";
             var bankAccountNumber = "NL91ABNA0417164300";
             var dateOfBirth = new DateTimeOffset(1988, 8, 9, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;
@@ -37,16 +38,17 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             customer.Firstname.ShouldBe(firstname);
             customer.Lastname.ShouldBe(lastname);
             customer.DateOfBirth.ShouldBe(dateOfBirth);
-            customer.Email.ShouldBe(email);
+            customer.Email.Value.ShouldBe(email);
             customer.PhoneNumber.ShouldBe(phoneNumber);
             customer.BankAccountNumber.ShouldBe(bankAccountNumber);
             customer.DomainEvents.Count.ShouldBe(1);
             customer.DomainEvents.Count(c=> c.GetType().Name.Equals(nameof(CreateCustomerDomainEvent))).ShouldBe(1);
         }
-        [Fact]
-        public async Task Unable_to_create_customer_successfully_when_PhoneNumber_is_invalid()
+        [Theory]
+        [InlineData("5d3ed193-79e4-4b55-ab84-9fc97746ce8d")]
+        [InlineData("982188776655")]
+        public async Task Unable_to_create_customer_successfully_when_PhoneNumber_is_invalid(string phoneNumber)
         {
-            var phoneNumber = Guid.NewGuid().ToString();
             var builder = CustomerBuilder.Instance;
 
             await Assert.ThrowsAsync<InvalidPhoneNumberException>(() => builder.WithPhoneNumber(phoneNumber).CreateAsync());
@@ -113,7 +115,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             customer.Firstname.ShouldBe(expectedFirstname);
             customer.Lastname.ShouldBe(expectedLastname);
             customer.DateOfBirth.ShouldBe(expectedDateOfBirth);
-            customer.Email.ShouldBe(expectedEmail);
+            customer.Email.Value.ShouldBe(expectedEmail);
             customer.PhoneNumber.ShouldBe(expectedPhoneNumber);
             customer.BankAccountNumber.ShouldBe(expectedBankAccountNumber);
             customer.DomainEvents.Count.ShouldBe(2);

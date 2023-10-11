@@ -35,7 +35,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers.Builders
             WithFirstname("Ali");
             WithLastname("Jahanbin");
             WithDateOfBirth(new DateTimeOffset(1988, 8, 9, 0, 0,0 , new TimeSpan()));
-            WithPhoneNumber("+989224957626");
+            WithPhoneNumber("+989121234567");
             WithEmail("jahanbin.ali1988@gmail.com");
             WithBankAccountNumber("NL91ABNA0417164300");
 
