@@ -13,6 +13,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
         [Theory]
         [InlineData("+989121234567")]
         [InlineData("+16156381234")]
+        [InlineData("+436641874055")]
         public async Task Create_customer_successfully(string phoneNumber)
         {
             var id = 1;
@@ -45,13 +46,21 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             customer.DomainEvents.Count(c=> c.GetType().Name.Equals(nameof(CreateCustomerDomainEvent))).ShouldBe(1);
         }
         [Theory]
-        [InlineData("5d3ed193-79e4-4b55-ab84-9fc97746ce8d")]
+        [InlineData("9821887766551")]
         [InlineData("982188776655")]
         public async Task Unable_to_create_customer_successfully_when_PhoneNumber_is_invalid(string phoneNumber)
         {
             var builder = CustomerBuilder.Instance;
 
             await Assert.ThrowsAsync<InvalidPhoneNumberException>(() => builder.WithPhoneNumber(phoneNumber).CreateAsync());
+        }
+        [Fact]
+        public async Task Unable_to_create_customer_successfully_when_PhoneNumber_is_longer_than_expected()
+        {
+            var phoneNumber = Guid.NewGuid().ToString();
+            var builder = CustomerBuilder.Instance;
+
+            await Assert.ThrowsAsync<PhoneNumberLengthIsLongerThanLimitationException>(() => builder.WithPhoneNumber(phoneNumber).CreateAsync());
         }
         [Fact]
         public async Task Unable_to_create_customer_successfully_when_Email_is_invalid()
@@ -102,7 +111,7 @@ namespace Mc2.CrudTest.Domain.Tests.Customers
             var expectedFirstname = Guid.NewGuid().ToString();
             var expectedLastname = Guid.NewGuid().ToString();
             var expectedEmail = "jahanbinali1988@yahoo.com";
-            var expectedPhoneNumber = "09165770704";
+            var expectedPhoneNumber = "+989121234567";
             var expectedBankAccountNumber = "NL91ABNA0417164300";
             var expectedDateOfBirth = new DateTimeOffset(1988, 9, 8, 0, 0, 0, new TimeSpan());
             var builder = CustomerBuilder.Instance;

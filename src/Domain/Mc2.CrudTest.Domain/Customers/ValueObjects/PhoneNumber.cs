@@ -35,7 +35,7 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
             try
             {
-                var convertedPhoneNumber = phoneUtil.Parse(Value, "IR");
+                var convertedPhoneNumber = phoneUtil.Parse(Value, null);
 
                 var numberType = phoneUtil.GetNumberType(convertedPhoneNumber);
 
