@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.Customers.Exceptions;
+﻿using Mc2.CrudTest.Domain.Customers.Constants;
+using Mc2.CrudTest.Domain.Customers.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.SeedWork;
 using PhoneNumbers;
@@ -28,6 +29,9 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
 
         private void Validate()
         {
+            if (Value.Length > ConstantValues.MaximumPhoneNumberLength)
+                throw new PhoneNumberLengthIsLongerThanLimitationException(this.Value);
+
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
             try
             {

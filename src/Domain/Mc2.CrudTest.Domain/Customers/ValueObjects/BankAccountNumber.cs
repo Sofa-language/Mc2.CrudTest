@@ -1,14 +1,8 @@
-﻿using EmailCore.Validation;
-using IbanNet;
-using IbanNet.Registry;
+﻿using IbanNet;
+using Mc2.CrudTest.Domain.Customers.Constants;
 using Mc2.CrudTest.Domain.Customers.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.SeedWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mc2.CrudTest.Domain.Customers.ValueObjects
 {
@@ -35,6 +29,9 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
 
         private void Validate()
         {
+            if (Value.Length > ConstantValues.MaximumBankAccountNumberLength)
+                throw new BankAccountNumberLengthIsLongerThanLimitationException(this.Value);
+
             var validator = new IbanValidator();
             ValidationResult validationResult = validator.Validate(Value);
             if (!validationResult.IsValid)

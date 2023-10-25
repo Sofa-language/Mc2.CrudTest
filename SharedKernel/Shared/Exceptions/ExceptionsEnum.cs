@@ -8,6 +8,9 @@
         DuplicatedEmailException,
         CustomerDuplicatedException,
         UnableToFindCustomerException,
-        PhoneNumberIsNotMobileException
+        PhoneNumberIsNotMobileException,
+        PhoneNumberLengthIsLongerThanLimitationException,
+        EmailLengthIsLongerThanLimitationException,
+        BankAccountNumberLengthIsLongerThanLimitationException
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EmailCore.Validation;
+using Mc2.CrudTest.Domain.Customers.Constants;
 using Mc2.CrudTest.Domain.Customers.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.Exceptions;
 using Mc2.CrudTest.Presentation.Shared.SeedWork;
@@ -28,6 +29,9 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
 
         private void Validate()
         {
+            if (Value.Length > ConstantValues.MaximumEmailLength)
+                throw new EmailLengthIsLongerThanLimitationException(this.Value);
+
             var response = EmailInfo.Validation(Value);
             if (!response.SyntaxValidationStatus)
                 throw new InvalidEmailException(ExceptionsEnum.InvalidEmailException, Value);

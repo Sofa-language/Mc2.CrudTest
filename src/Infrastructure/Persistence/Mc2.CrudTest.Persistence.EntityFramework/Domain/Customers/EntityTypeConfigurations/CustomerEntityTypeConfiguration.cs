@@ -22,19 +22,22 @@ namespace Sample.Infrastructure.Domain.Instruments
             builder.OwnsOne(p => p.Email, pp =>
             {
                 pp.Property(current => current.Value)
-                    .HasColumnName(nameof(Email));
+                    .HasColumnName(nameof(Email))
+                    .HasMaxLength(ConstantValues.MaximumEmailLength);
             });
 
             builder.OwnsOne(p => p.PhoneNumber, pp =>
             {
                 pp.Property(current => current.Value)
-                    .HasColumnName(nameof(PhoneNumber));
+                    .HasColumnName(nameof(PhoneNumber))
+                    .HasMaxLength(ConstantValues.MaximumPhoneNumberLength);
             });
 
             builder.OwnsOne(p => p.BankAccountNumber, pp =>
             {
                 pp.Property(current => current.Value)
-                    .HasColumnName(nameof(BankAccountNumber));
+                    .HasColumnName(nameof(BankAccountNumber))
+                    .HasMaxLength(ConstantValues.MaximumBankAccountNumberLength);
             });
 
             builder.Property(x => x.CreatedAt)
