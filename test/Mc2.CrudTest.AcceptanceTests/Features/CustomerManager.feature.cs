@@ -76,14 +76,12 @@ namespace Mc2.CrudTest.AcceptanceTests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Operator creates, list, update and delete customers")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
         public virtual void OperatorCreatesListUpdateAndDeleteCustomers()
         {
-            string[] tagsOfScenario = new string[] {
-                    "mytag"};
+            string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Operator creates, list, update and delete customers", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 6
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -103,14 +101,68 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
- testRunner.Given("to be filled...", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 8
- testRunner.When("to be filled...", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "FirstName",
+                            "LastName",
+                            "DateOfBirth",
+                            "Email",
+                            "PhoneNumber",
+                            "BankAccountNumber"});
+                table1.AddRow(new string[] {
+                            "Ali",
+                            "Jahanbin",
+                            "1988-07-09",
+                            "jahanbin@yahoo.com",
+                            "+989224957626",
+                            "NL91ABNA0417164300"});
+#line 6
+ testRunner.When("User can create customer", ((string)(null)), table1, "When ");
 #line hidden
 #line 9
- testRunner.Then("to be filled...", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Operator can see 1 customer in get user list api result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "FirstName",
+                            "LastName",
+                            "DateOfBirth",
+                            "Email",
+                            "PhoneNumber",
+                            "BankAccountNumber"});
+                table2.AddRow(new string[] {
+                            "AliAkbar",
+                            "Jahanbin",
+                            "1988-07-09",
+                            "jahanbin@yahoo.com",
+                            "+989224957626",
+                            "NL91ABNA0417164300"});
+#line 10
+ testRunner.When("Operator can update customer information", ((string)(null)), table2, "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "FirstName",
+                            "LastName",
+                            "DateOfBirth",
+                            "Email",
+                            "PhoneNumber",
+                            "BankAccountNumber"});
+                table3.AddRow(new string[] {
+                            "AliAkbar",
+                            "Jahanbin",
+                            "1988-07-09",
+                            "jahanbin@yahoo.com",
+                            "+989224957626",
+                            "NL91ABNA0417164300"});
+#line 13
+ testRunner.Then("customer data updated successfully with following changes", ((string)(null)), table3, "Then ");
+#line hidden
+#line 16
+ testRunner.When("Operator delete customer information", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 17
+ testRunner.Then("Customer data delete successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 18
+ testRunner.When("Operator get list of customer data the item count should be equal to 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             }
             this.ScenarioCleanup();

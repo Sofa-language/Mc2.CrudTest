@@ -39,8 +39,6 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
 
                 var numberType = phoneUtil.GetNumberType(convertedPhoneNumber);
 
-                string phoneNumberType = numberType.ToString();
-
                 if (numberType != PhoneNumberType.MOBILE && numberType != PhoneNumberType.FIXED_LINE_OR_MOBILE)
                 {
                     throw new InvalidPhoneNumberException(ExceptionsEnum.InvalidPhoneNumberException, $"{Value} is not mobile numberss");

@@ -1,17 +1,29 @@
-version: '3.4'
+version: '3.9'
 
 services:
-  mc2.crudtest.presentation.server:
-    image: ${DOCKER_REGISTRY-}mc2crudtestpresentationserver
-    build:
-      context: .
-      dockerfile: src/Presentation/Server/Dockerfile
-
   mssqlserver:
-    image:  mcr.microsoft.com/mssql/server:latest
+    image:  mcr.microsoft.com/mssql/server:2019-latest
+    restart: always
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/site:/data/mssqlserver
     environment: 
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Jahan*0021
       - MSSQL_PID=Evaluation
     ports:
       - 1434:1433
+
+  mc2.crudtest.presentation.server:
+    image: ${DOCKER_REGISTRY-}mc2crudtestpresentationserver
+    restart: always
+    build:
+      context: .
+      dockerfile: src/Presentation/Server/Dockerfile
+    ports:
+      - "54977:80"
+      - "44348:443"
+    depends_on:
+      - "mssqlserver"
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/

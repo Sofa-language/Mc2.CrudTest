@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Presentation.Server.Extensions;
+﻿using Mc2.CrudTest.Persistence.EntityFramework.Persistence;
+using Mc2.CrudTest.Presentation.Server.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Mc2.CrudTest.Presentation.Shared.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mc2.CrudTest.Presentation.Server
 {
@@ -39,6 +41,10 @@ namespace Mc2.CrudTest.Presentation.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<SampleDbContext>().Database.Migrate();
+            }
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Mc2.CrudTest.Presentation.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("customers")]
     public class CustomerController : ControllerBase
     {
         private readonly ILogger<CustomerController> _logger;
@@ -55,8 +55,8 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
             await _mediator.Send(query, cancellationToken);
         }
 
-        [HttpGet]
-        public async Task<Pagination<CustomerDto>> GetByIdAsync([FromQuery] GetAllCustomerModel getAllCustomerModel,CancellationToken cancellationToken)
+        [HttpGet("list")]
+        public async Task<Pagination<CustomerDto>> GetListAsync([FromQuery] GetAllCustomerModel getAllCustomerModel,CancellationToken cancellationToken)
         {
             var query = new GetCustomersQuery(getAllCustomerModel.PageSize, getAllCustomerModel.PageCount);
 
@@ -66,9 +66,9 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
         }
 
         [HttpGet("{customerId}")]
-        public async Task<Pagination<CustomerDto>> GetAsync([FromRoute]long customerId, CancellationToken cancellationToken)
+        public async Task<CustomerDto?> GetAsync([FromRoute]long customerId, CancellationToken cancellationToken)
         {
-            var query = new GetCustomersQuery(25, 1);
+            var query = new GetCustomerByIdQuery(customerId);
 
             var customers = await _mediator.Send(query, cancellationToken);
 

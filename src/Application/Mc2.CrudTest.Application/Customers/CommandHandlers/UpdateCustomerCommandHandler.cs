@@ -16,10 +16,15 @@ namespace Mc2.CrudTest.Application.Customers.CommandHandlers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailAddressDuplicationValidatorService _emailAddressDuplicationService;
         private readonly ICustomerDuplicationValidatorService _customerDuplicationValidatorService;
-        public UpdateCustomerCommandHandler(ICustomerRepository customerRepository, IUnitOfWork unitOfWork)
+        public UpdateCustomerCommandHandler(ICustomerRepository customerRepository, 
+            IUnitOfWork unitOfWork, 
+            IEmailAddressDuplicationValidatorService emailAddressDuplicationService, 
+            ICustomerDuplicationValidatorService customerDuplicationValidatorService)
         {
             _customerRepository = customerRepository;
             _unitOfWork = unitOfWork;
+            _emailAddressDuplicationService = emailAddressDuplicationService;
+            _customerDuplicationValidatorService = customerDuplicationValidatorService;
         }
         public async Task<long> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {

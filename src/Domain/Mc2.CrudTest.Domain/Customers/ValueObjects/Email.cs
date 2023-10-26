@@ -32,9 +32,9 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
             if (Value.Length > ConstantValues.MaximumEmailLength)
                 throw new EmailLengthIsLongerThanLimitationException(this.Value);
 
-            var response = EmailInfo.Validation(Value);
-            if (!response.SyntaxValidationStatus)
-                throw new InvalidEmailException(ExceptionsEnum.InvalidEmailException, Value);
+            //var response = EmailInfo.Validation(Value);
+            //if (!response.SyntaxValidationStatus)
+            //    throw new InvalidEmailException(ExceptionsEnum.InvalidEmailException, Value);
         }
     }
 }
