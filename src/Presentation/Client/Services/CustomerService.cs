@@ -1,20 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Net.Http.Json;
-using System.Text;
-using System.Web;
-using IdGen;
+﻿using System.Net.Http.Json;
 using Mc2.CrudTest.Presentation.Client.Models;
 using Mc2.CrudTest.Presentation.Shared.Application;
 using Newtonsoft.Json;
-using static System.Net.WebRequestMethods;
 
 namespace Mc2.CrudTest.Presentation.Client.Services
 {
     public class CustomerService : ICustomerService
     {
         private readonly HttpClient _httpClient;
-        private string baseUrl = "https://localhost:44348";
+        private string baseUrl = "https://localhost:4434";
         public CustomerService(HttpClient httpClient)
         {
             this._httpClient = httpClient;

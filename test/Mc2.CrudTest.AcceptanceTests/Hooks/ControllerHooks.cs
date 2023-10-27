@@ -20,17 +20,51 @@ public class ControllerHooks
     [BeforeTestRun]
     public static void DockerComposeUp()
     {
-        var dockerComposeFilePath = GetDockerComposeLocation();
+        var containerSql =
+            new Builder()
+                .UseContainer()
+                .WithName("sql")
+                .UseImage("mcr.microsoft.com/mssql/server:2019-latest")
+                .ExposePort(1434, 1433)
+                .WithEnvironment("MSSQL_SA_PASSWORD=Jahan*0021", "SA_PASSWORD=Jahan*0021", "ACCEPT_EULA=Y", "MSSQL_PID=Evaluation")
+                .WaitForMessageInLog("Starting up database 'tempdb'.", TimeSpan.FromSeconds(30))
+                .Build()
+                .Start();
 
-        var confirmationUrl = "http://localhost:54977/";
-        _compositeService = new Builder()
-            .UseContainer()
-            .UseCompose()
-            .FromFile(dockerComposeFilePath)
-            .RemoveOrphans()
-            .WaitForHttp("api", $"{confirmationUrl}/customers",
-                continuation: (response, _) => response.Code != HttpStatusCode.OK ? 2000 : 0)
-            .Build().Start();
+        //var containerSql =
+        //    new Builder().UseContainer()
+        //        .WithName("Sql")
+        //        .UseImage("mcr.microsoft.com/mssql/server:2019-latest")
+        //        .ExposePort(1433, 1434)
+        //        .WithEnvironment("--accept-eula=Y")
+        //        .WithEnvironment("MSSQL_SA_PASSWORD=Jahan*0021")
+        //        .WithEnvironment("MSSQL_PID=Evaluation")
+        //        .WaitForPort("1434/tcp", 30000 /*30s*/)
+        //        .Build()
+        //        .Start();
+
+        var containerTest =
+            new Builder()
+                .UseContainer()
+                .WithName("test")
+                .UseImage("mc2crudtestpresentationserver")
+                .ExposePort(5497, 80)
+                .ExposePort(4434, 443)
+                .Build()
+                .Start();
+
+
+        //var dockerComposeFilePath = GetDockerComposeLocation();
+
+        //var confirmationUrl = "http://localhost:54977";
+        //_compositeService = new Builder()
+        //    .UseContainer()
+        //    .UseCompose()
+        //    .FromFile(dockerComposeFilePath)
+        //    .RemoveOrphans()
+        //    .WaitForHttp("mc2.crudtest.presentation.server", $"{confirmationUrl}/customers",
+        //        continuation: (response, _) => response.Code != HttpStatusCode.OK ? 2000 : 0)
+        //    .Build().Start();
     }
 
     [AfterTestRun]
@@ -46,7 +80,7 @@ public class ControllerHooks
     {
         var httpClient = new HttpClient
         {
-            BaseAddress = new Uri("http://localhost:54977/")
+            BaseAddress = new Uri("http://localhost:5497/")
         };
         _objectRegister.RegisterInstanceAs(httpClient);
     }
