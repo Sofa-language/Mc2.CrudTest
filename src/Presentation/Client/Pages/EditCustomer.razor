@@ -1,7 +1,6 @@
 ﻿@page "/customer"
 @page "/customer/{id:long}"
 @using Mc2.CrudTest.Presentation.Client.Models
-@using Mc2.CrudTest.Presentation.Client.Services
 @inject NavigationManager NavigationManager
 
 <PageTitle>@title</PageTitle>
@@ -58,15 +57,15 @@ else
     private string title = string.Empty;
     private Customer? customer;
 
-    private void HandleSubmit()
+    private async Task HandleSubmit()
     {
-        if (customer!.Id == 0)
+        if (customer!.Id == null || customer!.Id == 0)
         {
-            CustomerService.AddCustomer(customer);   
+            await CustomerService.AddCustomerAsync(customer);
         }
         else
         {
-            CustomerService.UpdateCustomer(customer);
+            await CustomerService.UpdateCustomerAsync(customer);
         }
         NavigationManager.NavigateTo("/");
     }
@@ -76,11 +75,11 @@ else
         NavigationManager.NavigateTo("/");
     }
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
         if (Id is not null)
         {
-            Customer foundCustomer = CustomerService.GetCustomerById(Id!.Value);
+            Customer foundCustomer = await CustomerService.GetCustomerByIdAsync(Id!.Value);
             customer = new()
             {
                 Id = foundCustomer.Id,

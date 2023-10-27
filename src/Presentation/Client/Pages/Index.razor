@@ -44,11 +44,11 @@ else
                 <td>@customer.Email</td>
                 <td>@customer.PhoneNumber</td>
                 <td>@customer.BankAccountNumber</td>
-                <td>@customer.DateOfBirth.ToString("MM/dd/yyyy")</td>
+                <td>@customer.DateOfBirth!.Value.ToString("MM/dd/yyyy")</td>
                 <td>
 
                     <button class="btn btn-primary" 
-                            @onclick="() => EditCustomer(customer.Id)">
+                            @onclick="() => EditCustomer(customer.Id!.Value)">
                                 <i class="oi oi-pencil"></i>
                     </button>
 
@@ -65,15 +65,15 @@ else
     </table>
 }
 
-
 @code
 {
     private Customer[]? _customers;
     private Customer? currentCustomer;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _customers = CustomerService.GetCustomerList();
+        var result = await CustomerService.GetCustomerListAsync();
+        _customers = result;
     }
 
     private void CreateCustomer()
@@ -91,8 +91,8 @@ else
     {
         if (accepted)
         {
-            CustomerService.DeleteCustomer((currentCustomer!.Id));
-            _customers = CustomerService.GetCustomerList();
+            CustomerService.DeleteCustomerAsync(currentCustomer!.Id!.Value).GetAwaiter().GetResult();
+            _customers = CustomerService.GetCustomerListAsync().GetAwaiter().GetResult();
         }
     }
 }

@@ -27,16 +27,20 @@ namespace Mc2.CrudTest.Presentation.Server
             services.AddServices(Configuration, _env);
 
             services.AddControllers()
-           .AddJsonOptions(c =>
-           {
-               c.JsonSerializerOptions
-                .Converters.Add(new CustomLongToStringConverter());
-           });
+               .AddJsonOptions(c =>
+               {
+                   c.JsonSerializerOptions.Converters.Add(new CustomLongToStringConverter());
+               });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sample", Version = "v1" });
             });
+
+            services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            {
+                builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            }));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,11 +55,12 @@ namespace Mc2.CrudTest.Presentation.Server
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sample v1"));
             }
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseRouting();
+            app.UseCors("corsapp");
 
             app.UseEndpoints(endpoints =>
             {

@@ -26,7 +26,7 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<long> CreateAsync([FromQuery] CreateOrUpdateCustomerModel model, CancellationToken cancellationToken)
+        public async Task<long> CreateAsync([FromBody] CreateOrUpdateCustomerModel model, CancellationToken cancellationToken)
         {
             var query = new CreateCustomerCommand(model.FirstName, model.LastName, model.Email,
                 model.PhoneNumber, model.BankAccountNumber, model.DateOfBirth);
@@ -37,7 +37,7 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
         }
 
         [HttpPut("{customerId}")]
-        public async Task<long> UpdateAsync([FromRoute]long customerId, [FromQuery] CreateOrUpdateCustomerModel model, CancellationToken cancellationToken)
+        public async Task<long> UpdateAsync([FromRoute]long customerId, [FromBody] CreateOrUpdateCustomerModel model, CancellationToken cancellationToken)
         {
             var query = new UpdateCustomerCommand(customerId, model.FirstName, model.LastName, model.Email,
                 model.PhoneNumber, model.BankAccountNumber, model.DateOfBirth);

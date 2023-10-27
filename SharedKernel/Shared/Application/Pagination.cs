@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Mc2.CrudTest.Presentation.Shared.Application
+﻿namespace Mc2.CrudTest.Presentation.Shared.Application
 {
     [Serializable]
     public class Pagination<TResult>
