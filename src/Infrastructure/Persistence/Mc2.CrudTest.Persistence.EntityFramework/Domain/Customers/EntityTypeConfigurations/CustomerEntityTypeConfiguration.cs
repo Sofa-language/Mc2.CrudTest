@@ -12,12 +12,23 @@ namespace Sample.Infrastructure.Domain.Instruments
         {
             builder.HasIndex(x => x.Id)
                 .IsUnique();
-
             builder.Property(current => current.Id).ValueGeneratedNever();
 
-            builder.Property(x => x.Firstname).HasMaxLength(ConstantValues.MaximumFirstnameLength);
-            builder.Property(x => x.Lastname).HasMaxLength(ConstantValues.MaximumLastnameLength);
             builder.Property(x => x.DateOfBirth);
+
+            builder.OwnsOne(p => p.Firstname, pp =>
+            {
+                pp.Property(current => current.Value)
+                    .HasColumnName(nameof(FirstName))
+                    .HasMaxLength(ConstantValues.MaximumFirstnameLength);
+            });
+
+            builder.OwnsOne(p => p.Lastname, pp =>
+            {
+                pp.Property(current => current.Value)
+                    .HasColumnName(nameof(LastName))
+                    .HasMaxLength(ConstantValues.MaximumLastnameLength);
+            });
 
             builder.OwnsOne(p => p.Email, pp =>
             {

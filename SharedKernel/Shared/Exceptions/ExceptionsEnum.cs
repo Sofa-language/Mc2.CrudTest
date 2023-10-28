@@ -11,6 +11,8 @@
         PhoneNumberIsNotMobileException,
         PhoneNumberLengthIsLongerThanLimitationException,
         EmailLengthIsLongerThanLimitationException,
-        BankAccountNumberLengthIsLongerThanLimitationException
+        BankAccountNumberLengthIsLongerThanLimitationException,
+        FirstNameLengthIsLongerThanLimitationException,
+        LastNameLengthIsLongerThanLimitationException
     }
 }

@@ -18,7 +18,7 @@ namespace Mc2.CrudTest.Application.Customers.QueryHandlers
         {
             var customer = await _dbContext.Customers
                 .Where(s => s.Id == request.CustomerId)
-                .Select(s=> new CustomerDto(s.Id, s.Firstname, s.Lastname, s.PhoneNumber.Value, s.Email.Value, s.BankAccountNumber.Value, s.DateOfBirth))
+                .Select(s=> new CustomerDto(s.Id, s.Firstname.Value, s.Lastname.Value, s.PhoneNumber.Value, s.Email.Value, s.BankAccountNumber.Value, s.DateOfBirth))
                 .SingleOrDefaultAsync();
 
             return customer;

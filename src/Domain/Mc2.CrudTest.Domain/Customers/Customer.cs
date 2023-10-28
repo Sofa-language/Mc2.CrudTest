@@ -24,8 +24,8 @@ namespace Mc2.CrudTest.Domain.Customers
             BankAccountNumber = initializer.BankAccountNumber;
         }
         public long Id { get; private set; }
-        public string Firstname { get; private set; }
-        public string Lastname { get; private set; }
+        public FirstName Firstname { get; private set; }
+        public LastName Lastname { get; private set; }
         public DateTimeOffset DateOfBirth { get; private set; }
         public PhoneNumber PhoneNumber { get; private set; }
         public Email Email { get; private set; }
@@ -54,7 +54,7 @@ namespace Mc2.CrudTest.Domain.Customers
 
             await customer.SetEmail(initializer.Email, emailAddressDuplicationService);
 
-            customer.AddDomainEvent(new CreateCustomerDomainEvent(customer.Id, customer.Firstname, customer.Lastname,
+            customer.AddDomainEvent(new CreateCustomerDomainEvent(customer.Id, customer.Firstname.Value, customer.Lastname.Value,
                 customer.Email.Value, customer.PhoneNumber.Value, customer.BankAccountNumber.Value, customer.DateOfBirth));
 
             return customer;
@@ -77,7 +77,7 @@ namespace Mc2.CrudTest.Domain.Customers
             PhoneNumber = initializer.PhoneNumber;
             BankAccountNumber = initializer.BankAccountNumber;
 
-            AddDomainEvent(new UpdateCustomerDomainEvent(this.Id, this.Firstname, this.Lastname,
+            AddDomainEvent(new UpdateCustomerDomainEvent(this.Id, this.Firstname.Value, this.Lastname.Value,
                 this.Email.Value, this.PhoneNumber.Value, this.BankAccountNumber.Value, this.DateOfBirth));
         }
 

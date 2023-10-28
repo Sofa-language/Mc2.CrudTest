@@ -13,7 +13,7 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            return new Email(value: value);
+            return new Email(value: value.ToLower().Trim());
         }
 
         private Email() : base()
@@ -32,9 +32,9 @@ namespace Mc2.CrudTest.Domain.Customers.ValueObjects
             if (Value.Length > ConstantValues.MaximumEmailLength)
                 throw new EmailLengthIsLongerThanLimitationException(this.Value);
 
-            //var response = EmailInfo.Validation(Value);
-            //if (!response.SyntaxValidationStatus)
-            //    throw new InvalidEmailException(ExceptionsEnum.InvalidEmailException, Value);
+            var response = EmailInfo.Validation(Value);
+            if (!response.SyntaxValidationStatus)
+                throw new InvalidEmailException(ExceptionsEnum.InvalidEmailException, Value);
         }
     }
 }

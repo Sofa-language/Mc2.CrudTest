@@ -18,7 +18,7 @@ namespace Mc2.CrudTest.Application.Customers.QueryHandlers
         {
             var totalCount = await _dbContext.Customers.CountAsync();
             var customers = await _dbContext.Customers
-                .Select(s => new CustomerDto(s.Id, s.Firstname, s.Lastname, s.PhoneNumber.Value, s.Email.Value, s.BankAccountNumber.Value, s.DateOfBirth))
+                .Select(s => new CustomerDto(s.Id, s.Firstname.Value, s.Lastname.Value, s.PhoneNumber.Value, s.Email.Value, s.BankAccountNumber.Value, s.DateOfBirth))
                 .ToListAsync();
 
             return new Pagination<CustomerDto>() { Items = customers, TotalItems = totalCount };
