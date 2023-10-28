@@ -22,8 +22,8 @@ namespace Mc2.CrudTest.AcceptanceTests.Steps
             _scenarioContext = scenarioContext;
         }
 
-        [When(@"User can create customer")]
-        public async Task WhenUserCanCreateCustomer(Table table)
+        [When(@"Operator can create customer")]
+        public async Task WhenOperatorCanCreateCustomer(Table table)
         {
             var createCustomerRequests = table.CreateSet<CreateOrUpdateCustomerModel>();
             var createdCustomerIds = new List<long>();
@@ -36,7 +36,7 @@ namespace Mc2.CrudTest.AcceptanceTests.Steps
             _scenarioContext.Add("CreatedCustomerIds", createdCustomerIds);
         }
 
-        [Then(@"Operator can see (.*) customer in get user list api result")]
+        [Then(@"Operator can see (.*) customer in get customers list api result")]
         public void ThenOperatorCanSeeCustomerInGetUserListApiResult(int p0)
         {
             var createdCustomerIds = _scenarioContext.Get<List<long>>("CreatedCustomerIds");
@@ -48,17 +48,17 @@ namespace Mc2.CrudTest.AcceptanceTests.Steps
         public async Task WhenOperatorCanUpdateCustomerInformation(Table table)
         {
             var customerId = _scenarioContext.Get<List<long>>("CreatedCustomerIds").Single();
-            var updateCustomerRequest = table.CreateSet<CreateOrUpdateCustomerModel>();
-            var response = await _httpClient.PutAsJsonAsync($"customers/{customerId}/", updateCustomerRequest);
+            var updateCustomerRequest = table.CreateSet<CreateOrUpdateCustomerModel>().Single();
+            var response = await _httpClient.PutAsJsonAsync($"customers/{customerId}", updateCustomerRequest);
             response.IsSuccessStatusCode.Should().Be(true);
         }
 
-        [Then(@"customer data updated successfully")]
+        [Then(@"customer data updated successfully with following changes")]
         public async Task ThenCustomerDataUpdatedSuccessfully(Table table)
         {
             var customerId = _scenarioContext.Get<List<long>>("CreatedCustomerIds").Single();
-            var expectedResult = table.CreateSet<CreateOrUpdateCustomerModel>();
-            var response = await _httpClient.GetAsync($"customers/{customerId}/");
+            var expectedResult = table.CreateSet<CreateOrUpdateCustomerModel>().Single();
+            var response = await _httpClient.GetAsync($"customers/{customerId}");
             response.IsSuccessStatusCode.Should().Be(true);
             string responseContent = await response.Content.ReadAsStringAsync();
             var convertedModel = JsonConvert.DeserializeObject<CustomerDto>(responseContent);
@@ -76,7 +76,7 @@ namespace Mc2.CrudTest.AcceptanceTests.Steps
         public async Task WhenOperatorDeleteCustomerInformation()
         {
             var customerId = _scenarioContext.Get<List<long>>("CreatedCustomerIds").Single();
-            var response = await _httpClient.DeleteAsync($"customers/{customerId}/");
+            var response = await _httpClient.DeleteAsync($"customers/{customerId}");
             response.IsSuccessStatusCode.Should().Be(true);
         }
 

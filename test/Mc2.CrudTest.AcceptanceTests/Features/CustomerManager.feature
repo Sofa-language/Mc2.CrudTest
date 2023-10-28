@@ -3,10 +3,10 @@
 As a an operator I wish to be able to Create, Update, Delete customers and list all customers
 	
 Scenario: Operator creates, list, update and delete customers 
-	When User can create customer
+	When Operator can create customer
 	| FirstName | LastName | DateOfBirth | Email              | PhoneNumber   | BankAccountNumber  |
 	| Ali       | Jahanbin | 1988-07-09  | jahanbin@yahoo.com | +989224957626 | NL91ABNA0417164300 |
-	Then Operator can see 1 customer in get user list api result
+	Then Operator can see 1 customer in get customers list api result
 	When Operator can update customer information
 	| FirstName | LastName | DateOfBirth | Email              | PhoneNumber   | BankAccountNumber  |
 	| AliAkbar       | Jahanbin | 1988-07-09  | jahanbin@yahoo.com | +989224957626 | NL91ABNA0417164300 |

@@ -47,7 +47,6 @@ namespace Mc2.CrudTest.Persistence.EntityFramework.Persistence
         public Task<TEntity> GetAsync(Tkey id, CancellationToken cancellationToken)
         {
             return DbContext.Set<TEntity>()
-                .AsNoTracking()
                 .Apply(ConfigureInclude)
                 .SingleOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
         }

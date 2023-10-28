@@ -16,9 +16,9 @@ namespace Mc2.CrudTest.Application.Customers.CommandHandlers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailAddressDuplicationValidatorService _emailAddressDuplicationService;
         private readonly ICustomerDuplicationValidatorService _customerDuplicationValidatorService;
-        public UpdateCustomerCommandHandler(ICustomerRepository customerRepository, 
-            IUnitOfWork unitOfWork, 
-            IEmailAddressDuplicationValidatorService emailAddressDuplicationService, 
+        public UpdateCustomerCommandHandler(ICustomerRepository customerRepository,
+            IUnitOfWork unitOfWork,
+            IEmailAddressDuplicationValidatorService emailAddressDuplicationService,
             ICustomerDuplicationValidatorService customerDuplicationValidatorService)
         {
             _customerRepository = customerRepository;
@@ -36,6 +36,8 @@ namespace Mc2.CrudTest.Application.Customers.CommandHandlers
                 throw new UnableToFindCustomerException(ExceptionsEnum.UnableToFindCustomerException, request.Id.ToString());
 
             await customer.UpdateAsync(initializer, _emailAddressDuplicationService, _customerDuplicationValidatorService);
+
+            await _customerRepository.UpdateAsync(customer, cancellationToken);
             await _unitOfWork.CommitAsync(cancellationToken);
 
             return customer.Id;

@@ -116,10 +116,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "+989224957626",
                             "NL91ABNA0417164300"});
 #line 6
- testRunner.When("User can create customer", ((string)(null)), table1, "When ");
+ testRunner.When("Operator can create customer", ((string)(null)), table1, "When ");
 #line hidden
 #line 9
- testRunner.Then("Operator can see 1 customer in get user list api result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Operator can see 1 customer in get customers list api result", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                             "FirstName",
