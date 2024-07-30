@@ -1,0 +1,110 @@
+﻿@page "/customer"
+@page "/customer/{id:long}"
+@using Mc2.CrudTest.Presentation.Client.Models
+@inject NavigationManager NavigationManager
+
+<PageTitle>@title</PageTitle>
+
+<h1>Customer Catalog</h1>
+<h3>@title</h3>
+
+@if (customer is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-4">
+            <EditForm Model="@customer" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="mb-3">
+                    <label for="firstname" class="form-lable">Firstname:</label>
+                    <InputText id="firstname" @bind-Value="customer.Firstname" class="form-control"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label for="lastname" class="form-lable">Lastname:</label>
+                    <InputText id="lastname" @bind-Value="customer.Lastname" class="form-control"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-lable">Email:</label>
+                    <InputText id="email" @bind-Value="customer.Email" class="form-control"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label for="phonenumber" class="form-lable">Phone number:</label>
+                    <InputText id="phonenumber" @bind-Value="customer.PhoneNumber" class="form-control"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label for="bankaccountnumber" class="form-lable">Bank account number:</label>
+                    <InputText id="bankaccountnumber" @bind-Value="customer.BankAccountNumber" class="form-control"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label for="dateofbirth" class="form-lable">Date of birth:</label>
+                    <InputDate id="dateofbirth" @bind-Value="customer.DateOfBirth"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" @onclick="@Cancel">Cancel</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public long? Id { get; set; }
+
+    private string title = string.Empty;
+    private Customer? customer;
+
+    private async Task HandleSubmit()
+    {
+        if (customer!.Id == null || customer!.Id == 0)
+        {
+            await CustomerService.AddCustomerAsync(customer);
+        }
+        else
+        {
+            await CustomerService.UpdateCustomerAsync(customer);
+        }
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is not null)
+        {
+            Customer foundCustomer = await CustomerService.GetCustomerByIdAsync(Id!.Value);
+            customer = new()
+            {
+                Id = foundCustomer.Id,
+                Firstname = foundCustomer.Firstname,
+                Lastname = foundCustomer.Lastname,
+                Email = foundCustomer.Email,
+                PhoneNumber = foundCustomer.PhoneNumber,
+                BankAccountNumber = foundCustomer.BankAccountNumber,
+                DateOfBirth = foundCustomer.DateOfBirth,
+            };
+            title = $"Edit {customer.Firstname} {customer.Lastname}";
+        }
+        else
+        {
+            customer = new()
+            {
+                Id = default,
+                Firstname = string.Empty,
+                Lastname = string.Empty,
+                Email = string.Empty,
+                PhoneNumber = string.Empty,
+                BankAccountNumber = string.Empty,
+                DateOfBirth = default,
+            };
+            title = "New Customer";
+        }
+    }
+}

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="EmailCore.Validation" Version="1.1.0" />
+		<PackageReference Include="IbanNet" Version="5.11.0" />
+		<PackageReference Include="libphonenumber-csharp" Version="8.13.22" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\SharedKernel\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
+		<ProjectReference Include="..\Mc2.CrudTest.Domain.Contract\Mc2.CrudTest.Domain.Contract.csproj" />
+	</ItemGroup>
+
+</Project>
